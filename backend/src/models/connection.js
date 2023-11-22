@@ -8,14 +8,4 @@ const connection = mysql.createPool({
   database: 'StoreManager',
 });
 
-console.log('Configurações de conexão:', connection.config);
-
-connection.on('error', (err) => {
-  console.error('Erro de conexão:', err);
-});
-
-connection.on('acquire', () => {
-  console.log('Conexão adquirida do pool');
-});
-
 module.exports = connection;

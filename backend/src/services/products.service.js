@@ -3,7 +3,7 @@ const { productsModel } = require('../models');
 
 const getAllProducts = async () => {
   const products = await productsModel.getAllProducts();
-  return products;
+  if (products) return { status: 'SUCCESSFUL', data: products };
 };
 
 const getProductsById = async (id) => {

@@ -5,7 +5,7 @@ const getAllProducts = async () => {
   const [products] = await connection.execute(
     'SELECT * FROM products',
   );
-  return { status: 'SUCCESSFUL', data: products };
+  return products;
 };
 
 const getProductsById = async (id) => {

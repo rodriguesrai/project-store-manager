@@ -1,3 +1,5 @@
+// utils/mapStatusHTTP.js
+
 const httpErrorMap = {
   SUCCESSFUL: 200,
   CREATED: 201,
