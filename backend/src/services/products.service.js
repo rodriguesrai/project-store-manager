@@ -7,9 +7,9 @@ const getAllProducts = async () => {
 };
 
 const getProductsById = async (id) => {
-  const product = await productsModel.getProductsById(id);
-  if (!product) return false;
-  return product;
+  const data = await productsModel.getProductsById(id);
+  if (!data) return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+  return { status: 'SUCCESSFUL', data };
 };
 
 module.exports = {
