@@ -1,11 +1,21 @@
 const mysql = require('mysql2/promise');
 
 const connection = mysql.createPool({
-  host: process.env.MYSQL_HOST || 'localhost',
-  port: process.env.MYSQL_PORT || 3306,
-  user: process.env.MYSQL_USER || 'root',
-  password: process.env.MYSQL_PASSWORD || 'password',
-  database: 'store_manager_db',
+  host: 'db',
+  port: 3306,
+  user: 'root',
+  password: 'password',
+  database: 'StoreManager',
+});
+
+console.log('Configurações de conexão:', connection.config);
+
+connection.on('error', (err) => {
+  console.error('Erro de conexão:', err);
+});
+
+connection.on('acquire', () => {
+  console.log('Conexão adquirida do pool');
 });
 
 module.exports = connection;
