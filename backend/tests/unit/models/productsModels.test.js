@@ -28,4 +28,14 @@ describe('Testa products da camada model', function () {
     const productsModelIndex = await modelsIndex.productsModel;
     expect(productsModelIndex).to.be.a('object');
   });
+  it('Testa função createProduct válida', async function () {
+    // Simula a execução do banco de dados
+    sinon.stub(connection, 'execute').resolves([
+      {
+        insertId: 1,
+      },
+    ]);
+    const result = await productsModel.createProduct('Produto Teste');
+    expect(result).to.deep.equal({ id: 1, name: 'Produto Teste' });
+  });
 });
