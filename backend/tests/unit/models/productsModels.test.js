@@ -29,7 +29,6 @@ describe('Testa products da camada model', function () {
     expect(productsModelIndex).to.be.a('object');
   });
   it('Testa função createProduct válida', async function () {
-    // Simula a execução do banco de dados
     sinon.stub(connection, 'execute').resolves([
       {
         insertId: 1,

@@ -4,5 +4,6 @@ const { salesController } = require('../controllers');
 
 route.get('/', salesController.getAllSales);
 route.get('/:id', salesController.getSalesById);
+route.post('/', salesController.createSale);
 
 module.exports = route;

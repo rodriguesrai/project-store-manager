@@ -33,7 +33,24 @@ ORDER BY
   return sales;
 };
 
+const createSale = async (saleItems) => {
+  const [sale] = await connection.execute(`
+    INSERT INTO sales (date) VALUES (NOW());
+  `);
+
+  await Promise.all(saleItems.map(async (item) => {
+    const { productId, quantity } = item;
+    await connection.execute(`
+      INSERT INTO sales_products (sale_id, product_id, quantity)
+      VALUES (?, ?, ?);
+    `, [sale.insertId, productId, quantity]);
+  }));
+
+  return { id: sale.insertId, itemsSold: saleItems };
+};
+
 module.exports = {
   getAllSales,
   getSalesById,
+  createSale,
 };
