@@ -34,7 +34,29 @@ const getSalesById1DB = [
   },
 ];
 
+const createSaleDB = {
+  id: 1,
+  itemsSold: [
+    { productId: 1, quantity: 2 },
+    { productId: 2, quantity: 3 },
+  ],
+};
+
+const createSaleBody = [
+  {
+    productId: 1,
+    quantity: 2,
+  },
+  {
+    productId: 2,
+    quantity: 3,
+  },
+];
+
 module.exports = {
   getAllSalesDB,
   getSalesById1DB,
+  createSaleBody,
+  createSaleDB,
+
 };
