@@ -18,8 +18,19 @@ const createProduct = async (body) => {
   return { status: 'CREATED', data };
 };
 
+const updateProduct = async (id, body) => {
+  const { name } = body;
+  const data = await productsModel.updateProduct(id, name);
+  const formattedData = { 
+    id: Number(id),
+    name: data.name,
+  };
+  return { status: 'SUCCESSFUL', data: formattedData };
+};
+
 module.exports = {
   getAllProducts,
   getProductsById,
   createProduct,
+  updateProduct,
 };
