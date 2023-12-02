@@ -1,5 +1,6 @@
+// middleware/validateNewSales.js
 const httpErrorMap = require('../utils/mapStatusHTTP');
-const { productModel } = require('../models');
+const { productsService } = require('../services');
 
 const validateProductId = async (req, res, next) => {
   const arrayProducts = req.body;
@@ -8,14 +9,16 @@ const validateProductId = async (req, res, next) => {
     return res.status(httpErrorMap('BAD_REQUEST'))
       .json({ message: '"productId" is required' });
   }
-  const arrayIdsPromise = arrayProducts.map((produto) => productModel.findById(produto.productId));
-  const products = await Promise.all(arrayIdsPromise);
 
-  const isValid = products.every((produto) => produto !== null);
-  if (!isValid) {
-    return res.status(httpErrorMap('NOT_FOUND'))
-      .json({ message: 'Product not found' });
+  const productIds = arrayProducts.map((produto) => produto.productId);
+  const existingProducts = await Promise.all(
+    productIds.map(async (productId) => productsService.getProductsById(productId)),
+  );
+
+  if (existingProducts.some((result) => result.status === 'NOT_FOUND')) {
+    return res.status(httpErrorMap('NOT_FOUND')).json({ message: 'Product not found' });
   }
+
   next();
 };
 
