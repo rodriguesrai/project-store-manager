@@ -49,7 +49,7 @@ describe('Testa validateNewSale Middleware', function () {
 
     sinon.stub(productsService, 'getProductsById').resolves({ status: 'NOT_FOUND' });
 
-    await validateNewSaleMiddleware.validateProductId(req, res, next);
+    await validateNewSaleMiddleware.checkProductExistence(req, res, next);
 
     expect(res.status).to.have.been.calledOnceWith(404);
     expect(res.json).to.have.been.calledOnceWith({ message: 'Product not found' });
